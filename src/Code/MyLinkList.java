@@ -11,14 +11,14 @@ package Code;
 public class MyLinkList {
 	private Node head = new Node(-1);
 	private int length = 0;
-	
+
 	public int getLength() {
 		return length;
 	}
-	
+
 	public void add(Node node) {
 		Node temp = head;
-		for(int i = 0;i<length;i++) {
+		for (int i = 0; i < length; i++) {
 			temp = temp.next;
 		}
 		temp.next = node;
@@ -33,16 +33,18 @@ public class MyLinkList {
 		for (int i = 0; i < index; i++) {
 			temp = temp.next;
 		}
-		if (temp.next != null) {
-			length--;
-		}
+		length--;
 		temp.next = temp.next.next;
 		return true;
 	}
 
 	public boolean insert(Node node, int index) {
-		if (index < 0 || index >= length) {
+		if (index < 0 || index > length) {
 			return false;
+		}
+		if (index == length) {
+			add(node);
+			return true;
 		}
 		Node temp = head;
 		for (int i = 0; i < index; i++) {
@@ -94,7 +96,8 @@ public class MyLinkList {
 		Node node3 = new Node(3);
 		Node node4 = new Node(4);
 		Node node5 = new Node(5);
-		
+		Node node6 = new Node(6);
+
 		MyLinkList myLinkList = new MyLinkList();
 		myLinkList.add(node1);
 		myLinkList.disList();
@@ -106,7 +109,15 @@ public class MyLinkList {
 		myLinkList.disList();
 		myLinkList.add(node5);
 		myLinkList.disList();
-		System.out.println("Length: "+myLinkList.getLength());
+		myLinkList.insert(node6, 5);
+		myLinkList.disList();
+		if (myLinkList.delete(40) == false) {
+			System.out.println("角标异常，删除失败");
+		}
+		Node tempNode = new Node(12);
+		myLinkList.update(tempNode, 6);
+		myLinkList.disList();
+		System.out.println("Length: " + myLinkList.getLength());
 	}
 }
 
