@@ -90,6 +90,37 @@ public class MyLinkList {
 		return true;
 	}
 
+	public Node reserveList() {
+		// 判断链表是否为空
+		if (head == null || head.next == null) {
+			return head;
+		}
+		// 前驱结点
+		Node pre = null;
+		// 当前结点
+		Node cur = null;
+		// 后继结点
+		Node next = null;
+		// 把链表首结点变为尾结点
+		cur = head.next;
+		next = cur.next;
+		cur.next = null;
+		pre = cur;
+		cur = next;
+		// 使当前遍历到的结点cur指向其前驱结点
+		while (cur.next != null) {
+			next = cur.next;
+			cur.next = pre;
+			pre = cur;
+			cur = next;
+		}
+		// 结点最后一个结点指向倒数第二个结点
+		cur.next = pre;
+		// 链表头结点指向原来链表的尾结点
+		head.next = cur;
+		return head;
+	}
+
 	public static void main(String[] args) {
 		Node node1 = new Node(1);
 		Node node2 = new Node(2);
@@ -111,13 +142,15 @@ public class MyLinkList {
 		myLinkList.disList();
 		myLinkList.insert(node6, 5);
 		myLinkList.disList();
-		if (myLinkList.delete(40) == false) {
-			System.out.println("角标异常，删除失败");
-		}
-		Node tempNode = new Node(12);
-		myLinkList.update(tempNode, 6);
+//		if (myLinkList.delete(40) == false) {
+//			System.out.println("角标异常，删除失败");
+//		}
+//		Node tempNode = new Node(12);
+//		myLinkList.update(tempNode, 6);
 		myLinkList.disList();
 		System.out.println("Length: " + myLinkList.getLength());
+		Node head1 = myLinkList.reserveList();
+		myLinkList.disList();
 	}
 }
 
