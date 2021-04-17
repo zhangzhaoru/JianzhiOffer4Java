@@ -51,6 +51,7 @@ public class StringUtils {
         return String.valueOf(chars);
     }
 
+    // 123
     public static int FirstNotRepeatingChar(String str) {
         HashMap<Character, Integer> map = new HashMap<Character, Integer>();
         genMap(map,str);
