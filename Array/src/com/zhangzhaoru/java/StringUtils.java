@@ -76,6 +76,122 @@ public class StringUtils {
     }
 
 
+    public static String LeftRotateString(String str,int n){
+        if(n>str.length()){
+            return str;
+        }
+        String str1=str.substring(0,n);
+        String str2=str.substring(n);
+        return str2+str1;
+    }
+
+    public static String ReverseSentence(String str) {
+        if(str==null||isOnlyBlack(str)){
+            return str;
+        }
+        String[] strs=str.split(" ");
+        String res="";
+        for(int i = strs.length-1;i>=0;i--){
+            res+=strs[i]+" ";
+        }
+
+        return res.trim();
+    }
+
+    public char FirstAppearingOnce(String str){
+        if(str.isEmpty()){
+            return '#';
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        char[] chars = str.toCharArray();
+        for(int i=0;i<chars.length;i++){
+            if(map.containsKey(chars[i])){
+                map.put(chars[i],map.get(chars[i])+1);
+            }else{
+                map.put(chars[i],1);
+            }
+
+        }
+        for(int i=0;i<chars.length;i++){
+            if(map.get(chars[i])==1){
+                return chars[i];
+            }
+        }
+        return '#';
+    }
+
+    public static boolean isOnlyBlack(String str){
+        char[] chars = str.toCharArray();
+        for(int i =0;i<chars.length;i++){
+            if(chars[i]!=' '){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int str2Int(String str){
+        if(str.isEmpty()){
+            return 0;
+        }
+        int i=0;
+        int flag=1;
+        int num=0;
+        char[] chars = str.toCharArray();
+        if(chars[0]=='-'){
+            flag=-1;
+            i=1;
+        }
+        if(chars[0]=='+'){
+            i=1;
+        }
+        for(;i<chars.length;i++){
+            if(chars[i]>='0'&&chars[i]<'9'){
+                num=num*10+(chars[i]-'0');
+            }else{
+                return 0;
+            }
+        }
+        return flag*num;
+    }
+
+    @Test
+    public void test6(){
+        String str="gloodg";
+        System.out.println(FirstAppearingOnce(str));
+    }
+
+    @Test
+    public void test5(){
+        String str="+2147483647";
+        System.out.println(str2Int(str));
+    }
+
+    @Test
+    public void test3(){
+        String str="nowcoder. a am I";
+        System.out.println("ReverseSentence(str) = " + ReverseSentence(str));
+    }
+
+
+    @Test
+    public void test4(){
+        String str="  ";
+       if(isOnlyBlack(str)){
+           System.out.println("1");
+       }else{
+           System.out.println("0");
+       }
+    }
+
+
+    @Test
+    public void test2(){
+        String str="zhangzhaoru";
+        System.out.println("LeftRotateString(str,2) = " + LeftRotateString(str, 2));
+    }
+
+
 
     @Test
     public void test1() {
