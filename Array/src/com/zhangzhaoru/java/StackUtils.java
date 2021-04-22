@@ -2,6 +2,7 @@ package com.zhangzhaoru.java;
 
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Stack;
 
 /**
@@ -42,14 +43,16 @@ public class StackUtils {
     }
 
     public static boolean IsPopOrder(int[] pushA, int[] popA) {
-        if(pushA.length==0|| popA.length==0){
+        if (pushA.length == 0 || popA.length == 0) {
             return false;
         }
-        Stack<Integer> stack = new Stack<>();
-        int j=0;
-        for(int i=0;i<pushA.length;i++){
+        Stack<Integer> stack = new Stack<Integer>();
+
+        int j = 0;
+        for (int i = 0; i < pushA.length; i++) {
             stack.push(pushA[i]);
-            while(!stack.empty()&&stack.peek()==popA[j++]){
+            while (!stack.empty()&&popA[j] == stack.peek()) {
+                j++;
                 stack.pop();
             }
         }
@@ -72,12 +75,12 @@ public class StackUtils {
     }
 
     @Test
-    public void test2(){
-        int[] push={1,2,3,4,5};
-        int[] pop={4,3,5,2,1};
-        if(IsPopOrder(push,pop)){
+    public void test2() {
+        int[] push = {1, 2, 3, 4, 5};
+        int[] pop = {4, 3, 5, 2, 1};
+        if (IsPopOrder(push, pop)) {
             System.out.println("true");
-        }else{
+        } else {
             System.out.println("false");
         }
     }
