@@ -98,15 +98,15 @@ public class NumberUtils {
         }
         Deque list = new LinkedList<>();
         for (int i = 0; i < num.length; i++) {
-            while (!list.isEmpty() && (i - size + 1) >(int)list.getFirst()) {
+            while (!list.isEmpty() && (i - size + 1) > (int) list.getFirst()) {
                 list.removeFirst();
             }
-            while(!list.isEmpty()&&num[i]>=num[(int)list.getLast()]){
+            while (!list.isEmpty() && num[i] >= num[(int) list.getLast()]) {
                 list.removeLast();
             }
             list.addLast(i);
-            if(i>=size-1){
-                res.add(num[(int)list.getFirst()]);
+            if (i >= size - 1) {
+                res.add(num[(int) list.getFirst()]);
             }
 
         }
@@ -115,63 +115,142 @@ public class NumberUtils {
 
     /**
      * 数组连续最大和
+     *
      * @param array
      * @return
      */
     public static int FindGreatestSumOfSubArray(int[] array) {
-        if(array.length==0){
+        if (array.length == 0) {
             return 0;
         }
-        int maxSum=array[0];
-        int curSum=array[0];
-        for(int i =0;i<array.length;i++){
-            if(curSum>=0){
-                curSum+=array[i];
-            }else{
-                curSum=array[i];
+        int maxSum = array[0];
+        int curSum = array[0];
+        for (int i = 0; i < array.length; i++) {
+            if (curSum >= 0) {
+                curSum += array[i];
+            } else {
+                curSum = array[i];
             }
-            if(curSum>maxSum){
-                maxSum=curSum;
+            if (curSum > maxSum) {
+                maxSum = curSum;
             }
         }
         return maxSum;
     }
 
-    public static int[] str2Arr(String str){
+    public static int[] str2Arr(String str) {
         String substring = str.substring(1, str.length() - 1);
         String[] strings = substring.split(",");
         int[] array = new int[strings.length];
-        for(int i=0;i<strings.length;i++){
-            array[i]=StringUtils.str2Int(strings[i]);
+        for (int i = 0; i < strings.length; i++) {
+            array[i] = StringUtils.str2Int(strings[i]);
         }
         return array;
     }
 
+    /**
+     * 只包含因子为2，3，5的数称为丑数
+     *
+     * @param index
+     * @return
+     */
+    public static int getUglyNumber(int index) {
+        int curIndex = 1;
+        int i = 1;
+        while (curIndex < index) {
+            if (isUglyNum(i++)) {
+                curIndex++;
+            }
+        }
+
+        return i - 1;
+    }
+
+    public static int getUglyNumberII(int index) {
+        if (index < 7) {
+            return index;
+        }
+        int p2 = 0, p3 = 0, p5 = 0, curNum = 1;
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        while (list.size() < index) {
+            curNum = Math.min(list.get(p2) * 2, Math.min(list.get(p3) * 3, list.get(p5) * 5));
+            if (curNum == list.get(p2) * 2) {
+                p2++;
+            }
+            if (curNum == list.get(p3) * 3) {
+                p3++;
+            }
+            if (curNum == list.get(p5) * 5) {
+                p5++;
+            }
+            list.add(curNum);
+        }
+        return list.get(list.size() - 1);
+
+    }
+
+    public static boolean isUglyNum(int num) {
+        if (num <= 1) {
+            return false;
+        }
+        while (num != 1) {
+            if (num % 5 == 0) {
+                num /= 5;
+            } else if (num % 3 == 0) {
+                num /= 3;
+            } else if (num % 2 == 0) {
+                num /= 2;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Test
-    public void test6(){
-        String str="[1,-2,3,10,-4,7,2,-5]";
+    public void test9() {
+        System.out.println("getUglyNumberII(i) = " + getUglyNumberII(7));
+    }
+
+    @Test
+    public void test8() {
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("getUglyNumberII(i) = " + getUglyNumberII(i));
+        }
+    }
+
+    @Test
+    public void test7() {
+        boolean uglyNum = isUglyNum(1);
+        System.out.println(uglyNum);
+    }
+
+    @Test
+    public void test6() {
+        String str = "[1,-2,3,10,-4,7,2,-5]";
         int maxSum = FindGreatestSumOfSubArray(str2Arr(str));
         System.out.println(maxSum);
 
     }
 
     @Test
-    public void test5(){
-        String str="[1,-2,3,10,-4,7,2,-5]";
+    public void test5() {
+        String str = "[1,-2,3,10,-4,7,2,-5]";
         int[] arr = str2Arr(str);
         for (int i = 0; i < arr.length; i++) {
-            System.out.printf(arr[i]+" ");
+            System.out.printf(arr[i] + " ");
         }
         System.out.println();
     }
 
     @Test
-    public void test4(){
-        int[] num={2,3,4,2,6,2,5,1};
-        int size=3;
+    public void test4() {
+        int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
+        int size = 3;
         ArrayList<Integer> list = maxInWindows(num, size);
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf(list.get(i)+" ");
+            System.out.printf(list.get(i) + " ");
         }
         System.out.println();
     }
