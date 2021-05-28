@@ -5,6 +5,7 @@ import org.w3c.dom.ls.LSInput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -181,6 +182,26 @@ public class ArrayUtils {
 
     }
 
+    // 二分法输出旋转数组最小元素
+    public static int getMin(int[] arr){
+        int left=0;
+        int right=arr.length-1;
+        while(left+1<right){
+            int mid =(left+right)>>1;
+            if(arr[mid]>=arr[left]){
+                left=mid;
+            }else{
+                right=mid;
+            }
+        }
+        return arr[right];
+    }
+
+    @Test
+    public void testGetMin(){
+        int []arr = {5,1,2,3,4};
+        System.out.println(getMin(arr));
+    }
 
     @Test
     public void testBubbleSort(){
@@ -210,5 +231,7 @@ public class ArrayUtils {
         }
         System.out.println();
     }
+
+
 
 }

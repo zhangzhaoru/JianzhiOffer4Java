@@ -23,27 +23,27 @@ public class ListUtil {
     }
 
     public static ListNode findKthToTailII(ListNode pHead, int k) {
-        if (pHead == null) {
+        if(pHead==null||k==0){
             return null;
         }
-        ListNode right = pHead;
-        int count = 0;
-        while (right != null) {
-            right = right.next;
-            count += 1;
-            if (count == k) {
+        ListNode pRight=pHead;
+        int count=0;
+        while(pRight!=null){
+            count++;
+            if(count==k){
                 break;
             }
+            pRight=pRight.next;
         }
-        if (count != k) {
+        if(count!=k){
             return null;
         }
-        ListNode left = pHead;
-        while (right != null) {
-            left = left.next;
-            right = right.next;
+        ListNode pLeft=pHead;
+        while(pRight!=null){
+            pLeft=pLeft.next;
+            pRight=pRight.next;
         }
-        return left;
+        return pLeft;
     }
 
     public static ListNode findKthFromHead(ListNode pHead, int k) {
@@ -72,8 +72,8 @@ public class ListUtil {
         return count;
     }
 
-    public static ArrayList<Integer> printListFromTailToHead(ListNode head) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
+    public static List<Integer> printListFromTailToHead(ListNode head) {
+        List list = new ArrayList<Integer>();
         while (head != null) {
             list.add(head.val);
             head = head.next;
@@ -232,6 +232,27 @@ public class ListUtil {
         return res.next;
     }
 
+    public ListNode ReverseList(ListNode pHead) {
+        if(pHead==null){
+            return null;
+        }
+        ArrayList<ListNode>list=new ArrayList<>();
+        while(pHead!=null){
+            list.add(pHead);
+            pHead=pHead.next;
+        }
+        Collections.reverse(list);
+        pHead=list.get(0);
+        for(int i = 0;i<list.size()-1;i++){
+            ListNode preHead=list.get(i);
+            ListNode tailHead=list.get(i+1);
+            preHead.next=tailHead;
+        }
+        ListNode endNode=list.get(list.size()-1);
+        endNode.next=null;
+        return pHead;
+    }
+
 
     public static void printList(ListNode pHead) {
         while (pHead != null) {
@@ -254,7 +275,7 @@ public class ListUtil {
         l2.next = l3;
         l3.next = l4;
         l4.next = l5;
-        ArrayList<Integer> list = printListFromTailToHead(l1);
+        List<Integer> list = printListFromTailToHead(l1);
         Iterator<Integer> it = list.iterator();
         while (it.hasNext()) {
             System.out.print(it.next() + " ");
