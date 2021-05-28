@@ -59,4 +59,25 @@ public class TreeUtil {
                 dspHasubTree(leftNode.right, rightNode.right);
     }
 
+
+    public static TreeNode Mirror(TreeNode pHead) {
+        if (pHead == null || (pHead.left == null && pHead.right == null)) {
+            return pHead;
+        }
+        return dspMirror(pHead);
+    }
+
+    public static TreeNode dspMirror(TreeNode pHead) {
+        if (pHead == null || (pHead.left == null && pHead.right == null)) {
+            return pHead;
+        }
+        TreeNode tempNode = pHead.left;
+        pHead.left = pHead.right;
+        pHead.right = tempNode;
+        dspMirror(pHead.left);
+        dspMirror(pHead.right);
+        return pHead;
+    }
+
+
 }
