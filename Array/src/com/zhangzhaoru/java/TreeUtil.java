@@ -55,7 +55,7 @@ public class TreeUtil {
             return true;
         }
 
-        if (leftNode.data != rightNode.data) {
+        if (leftNode.val != rightNode.val) {
             return false;
         }
         return dspHasubTree(leftNode.left, rightNode.left) &&
@@ -92,7 +92,7 @@ public class TreeUtil {
         queue.add(root);
         while(!queue.isEmpty()){
             TreeNode curNode = queue.remove();
-            res.add(curNode.data);
+            res.add(curNode.val);
             if(curNode.left!=null){
                 queue.add(curNode.left);
             }

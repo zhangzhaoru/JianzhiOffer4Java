@@ -9,17 +9,23 @@ package com.zhangzhaoru.java;
  */
 public class TreeNode {
     //数据域
-    public int data;
+    public int val;
     //左指针域
     public TreeNode left;
     //右指针域
     public TreeNode right;
     //构造带有参数的构造方法
-    public TreeNode(int data) {
-        this.data = data;
+
+
+    public TreeNode() {
     }
+
+    public TreeNode(int data) {
+        this.val = data;
+    }
+
     public String toString() {
-        return "TreeNode [data=" + data + ", left=" + left + ", right=" + right
+        return "TreeNode [data=" + val + ", left=" + left + ", right=" + right
                 + "]";
     }
 }
