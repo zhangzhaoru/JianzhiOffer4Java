@@ -93,13 +93,43 @@ public class TreeUtil {
         while(!queue.isEmpty()){
             TreeNode curNode = queue.remove();
             res.add(curNode.val);
-            if(curNode.left!=null){
+            if (curNode.left != null) {
                 queue.add(curNode.left);
             }
-            if(curNode.right!=null){
+            if (curNode.right != null) {
                 queue.add(curNode.right);
             }
         }
         return res;
     }
+
+
+    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+
+    // 查找二叉树中和为某值的路径
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        if (root == null) {
+            return res;
+        }
+        ArrayList<Integer> path = new ArrayList<>();
+        dspFindPath(root, target, path);
+        return res;
+    }
+
+    public void dspFindPath(TreeNode root, int target, ArrayList<Integer> path) {
+        if (root == null || target < 0) {
+            return;
+        }
+        if (root.val == target && root.right == null && root.right == null) {
+            path.add(root.val);
+            res.add(path);
+            return;
+        }
+        path.add(root.val);
+        ArrayList<Integer> clone = (ArrayList<Integer>) path.clone();
+        dspFindPath(root.left, target - root.val, path);
+        dspFindPath(root.right, target - root.val, clone);
+    }
+
+
 }
