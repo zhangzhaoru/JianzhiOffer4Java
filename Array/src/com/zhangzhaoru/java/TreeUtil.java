@@ -1,5 +1,8 @@
 package com.zhangzhaoru.java;
 
+import java.util.ArrayList;
+import java.util.Queue;
+
 /**
  * @BelongsProject: JianzhiOffer
  * @BelongsPackage: com.zhangzhaoru.java
@@ -79,5 +82,24 @@ public class TreeUtil {
         return pHead;
     }
 
-
+    // 借助队列层序遍历二叉树
+    public static ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if(root==null){
+            return res;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            TreeNode curNode = queue.remove();
+            res.add(curNode.data);
+            if(curNode.left!=null){
+                queue.add(curNode.left);
+            }
+            if(curNode.right!=null){
+                queue.add(curNode.right);
+            }
+        }
+        return res;
+    }
 }
