@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Array/Array.iml" filepath="$PROJECT_DIR$/Array/Array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JProfile/JProfile.iml" filepath="$PROJECT_DIR$/JProfile/JProfile.iml" />
       <module fileurl="file://$PROJECT_DIR$/JianzhiOffer.iml" filepath="$PROJECT_DIR$/JianzhiOffer.iml" />
     </modules>
   </component>

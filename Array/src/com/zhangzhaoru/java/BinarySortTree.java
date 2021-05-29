@@ -218,5 +218,31 @@ public class BinarySortTree {
         return last;
     }
 
+    // 验证序列为二叉搜索树后续遍历序列
+    public static boolean VerifySquenceOfBST(int [] sequence) {
+        if(sequence==null||sequence.length==0){
+            return false;
+        }
+        return dspVerifySquenceOfBST(sequence,0,sequence.length-1);
+    }
+
+    private static boolean dspVerifySquenceOfBST(int[] sequence, int left, int right) {
+        if(left>=right){
+            return true;
+        }
+        int i = left;
+        int j = 0;
+        while(sequence[i]<sequence[right]){
+            i++;
+        }
+        for(j=i;j<right;j++){
+            if(sequence[j]<sequence[right]){
+                return false;
+            }
+        }
+        return dspVerifySquenceOfBST(sequence,left,i-1)&&
+        dspVerifySquenceOfBST(sequence,i,right-1);
+    }
+
 
 }
