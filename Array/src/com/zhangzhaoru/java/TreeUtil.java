@@ -11,6 +11,8 @@ import java.util.Queue;
  * @Description:
  */
 public class TreeUtil {
+    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+
     //    重建二叉树
     public static TreeNode rebuildBinaryTree(int pre[], int in[]) {
         if (pre == null || in == null) {
@@ -37,8 +39,8 @@ public class TreeUtil {
         return root;
     }
 
-
     // 判断tree2是否为tree1的子树
+
     public static boolean hasSubtree(TreeNode root1, TreeNode root2) {
         if (root1 == null || root2 == null) {
             return false;
@@ -81,8 +83,8 @@ public class TreeUtil {
         dspMirror(pHead.right);
         return pHead;
     }
-
     // 借助队列层序遍历二叉树
+
     public static ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<>();
         if(root==null){
@@ -103,8 +105,6 @@ public class TreeUtil {
         return res;
     }
 
-
-    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
 
     // 查找二叉树中和为某值的路径
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
@@ -131,5 +131,24 @@ public class TreeUtil {
         dspFindPath(root.right, target - root.val, clone);
     }
 
+    // 获取二叉树的深度
+    public static int TreeDepth(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int leftDepth=0;
+        int rightDepth=0;
+        return dspTreeDepth(root);
+    }
+
+    public static int dspTreeDepth(TreeNode curNode){
+        if(curNode==null){
+            return 0;
+        }
+        if(curNode.left==null&&curNode.right==null){
+            return 1;
+        }
+        return Math.max(dspTreeDepth(curNode.left),dspTreeDepth(curNode.right))+1;
+    }
 
 }
