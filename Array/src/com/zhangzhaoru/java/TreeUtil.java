@@ -151,4 +151,21 @@ public class TreeUtil {
         return Math.max(dspTreeDepth(curNode.left),dspTreeDepth(curNode.right))+1;
     }
 
+    // 判断二叉树是否为平衡二叉树
+    public static boolean IsBalanced_Solution(TreeNode root) {
+        if(root==null){
+            return true;
+        }
+        return dspBanlancedTree(root);
+    }
+
+    public static Boolean dspBanlancedTree(TreeNode curNode){
+        if(curNode==null){
+            return true;
+        }
+        if(curNode.right==null&&curNode.left==null){
+            return true;
+        }
+        return (Math.abs(TreeDepth(curNode.left)-TreeDepth(curNode.right)))>1?false:true;
+    }
 }
