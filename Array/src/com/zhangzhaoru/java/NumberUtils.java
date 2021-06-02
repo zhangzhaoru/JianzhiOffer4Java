@@ -246,6 +246,55 @@ public class NumberUtils {
         return true;
     }
 
+    // 小顶堆
+    private static PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>(); //小顶堆，默认容量为11
+    // 大顶堆
+    private static PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(11,new Comparator<Integer>(){ //大顶堆，容量11
+        @Override
+        public int compare(Integer i1,Integer i2){
+            return i2-i1;
+        }
+    });
+
+    // 动态更新数据流的中位数
+    public static void Insert(Integer num) {
+        if(minHeap.isEmpty()&&maxHeap.isEmpty()){
+            maxHeap.add(num);
+            return;
+        }
+        if(num<maxHeap.peek()){
+            maxHeap.add(num);
+            if(Math.abs(maxHeap.size()-minHeap.size())>1){
+                minHeap.add(maxHeap.poll());
+            }
+        }else{
+            minHeap.add(num);
+            if(Math.abs(maxHeap.size()-minHeap.size())>1){
+                maxHeap.add(minHeap.poll());
+            }
+        }
+    }
+
+    public static Double GetMedian() {
+        if(minHeap.size()==maxHeap.size() ){
+            return (double)(minHeap.peek()+maxHeap.peek())/(double)2.0;
+        }else if(minHeap.size()>maxHeap.size()){
+            return (double) (minHeap.peek());
+
+        }else{
+            return (double) maxHeap.peek();
+        }
+    }
+
+
+    @Test
+    public void test12(){
+        int[] nums=  {5,2,3,4,1,6,7,0,8};
+        for(int i=  0;i<nums.length;i++){
+            Insert(nums[i]);
+            System.out.println("GetMedian() = " + GetMedian());
+        }
+    }
 
 
 
