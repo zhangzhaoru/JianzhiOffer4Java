@@ -1,6 +1,7 @@
 package com.zhangzhaoru.java;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -217,6 +218,51 @@ public class TreeUtil {
         }
         return left.val==right.val&&isMirror(left.left,right.right)&&isMirror(left.right,right.left);
     }
+
+    // 按之字形打印二叉树
+    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+        ArrayList<ArrayList<T>> res = new ArrayList<>();
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        ArrayList<Integer> tempList=  new ArrayList<>();
+        queue.add(pRoot);
+        while(!queue.isEmpty()){
+            TreeNode node = queue.remove();
+
+            if(node.left!=null){
+                queue.add(node.left);
+            }
+            if(node.right!=null){
+                queue.add(node.right);
+            }
+        }
+
+
+    }
+
+    // 查找二叉搜索树的第k个节点
+    ArrayList<TreeNode> res=new ArrayList<>();
+    public static TreeNode KthNode(TreeNode pRoot, int k){
+        inOrder(pRoot);
+        if(k>res.size()||k<=0){
+            return null;
+        }
+        return res.get(k-1);
+    }
+
+    public static void inOrder(TreeNode root){
+        if(root==null){
+            return;
+        }
+        if(root.left!=null){
+            inOrder(root.left);
+        }
+        res.add(root);
+        if(root.right!=null){
+            inOrder(root.right);
+        }
+    }
+
+
 
 
 
