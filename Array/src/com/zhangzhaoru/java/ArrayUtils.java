@@ -243,5 +243,19 @@ public class ArrayUtils {
         return -1;
     }
 
+    // 构建乘积数组
+    public static int[] multiply(int[] A) {
+        int[] B = new int[A.length];
+        for(int i= 0;i<A.length;i++){
+            int temp=1;
+            for(int j = 0;j<A.length;j++){
+                if(j!=i){
+                    temp=temp*A[j];
+                }
+            }
+            B[i]=temp;
+        }
+        return B;
+    }
 
 }
