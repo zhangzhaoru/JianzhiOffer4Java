@@ -85,8 +85,8 @@ public class TreeUtil {
         dspMirror(pHead.right);
         return pHead;
     }
-    // 借助队列层序遍历二叉树
 
+    // 借助队列层序遍历二叉树
     public static ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<>();
         if(root==null){
@@ -107,6 +107,31 @@ public class TreeUtil {
         return res;
     }
 
+    // 层序输出二叉树（分行打印）
+    public static ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
+        Queue list = new LinkedList<TreeNode>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        if (pRoot == null) {
+            return res;
+        }
+        list.add(pRoot);
+
+        while (!list.isEmpty()) {
+            ArrayList<Integer> temp = new ArrayList<>();
+            for (int i = list.size() - 1; i >= 0; i--) {
+                TreeNode curNode = (TreeNode) list.poll();
+                temp.add(curNode.val);
+                if (curNode.left != null) {
+                    list.add(curNode.left);
+                }
+                if (curNode.right != null) {
+                    list.add(curNode.right);
+                }
+            }
+            res.add(temp);
+        }
+        return res;
+    }
 
     // 查找二叉树中和为某值的路径
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
