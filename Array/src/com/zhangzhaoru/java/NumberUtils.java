@@ -166,6 +166,44 @@ public class NumberUtils {
         return i - 1;
     }
 
+    //剪绳子
+    // 使用递归算法求解
+    public static int cutRope1(int target) {
+        if(target<2){
+            return 0;
+        }
+        if(target==2){
+            return 1;
+        }
+        if(target==3){
+            return 2;
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        for(int i  =4;i<=target;i++){
+            int max=0;
+            for(int j=1;j<=i/2;j++){
+                int temp = list.get(j)*list.get(i-j);
+                if(temp>=max){
+                    max=temp;
+                }
+            }
+            list.add(max);
+        }
+        return list.get(target);
+
+    }
+
+    @Test
+    public void test10(){
+        int target=8;
+        System.out.println(cutRope1(target));
+    }
+
+
     public static int getUglyNumberII(int index) {
         if (index < 7) {
             return index;
@@ -207,6 +245,9 @@ public class NumberUtils {
         }
         return true;
     }
+
+
+
 
     @Test
     public void test9() {
@@ -284,4 +325,26 @@ public class NumberUtils {
         System.out.println(list.peekFirst());
 
     }
+
+    // 不使用加减乘除做加法
+    public int Add(int num1,int num2) {
+        int result,ans;
+        do{
+            result = num1 ^ num2;
+            ans=(num1&num2)<<1;
+            System.out.println("Integer.toBinaryString(num1) = " + Integer.toBinaryString(num1));
+            System.out.println("Integer.toBinaryString(num2) = " + Integer.toBinaryString(num2));
+            System.out.println("Integer.toBinaryString(result) = " + Integer.toBinaryString(result));
+            System.out.println("Integer.toBinaryString(ans) = " + Integer.toBinaryString(ans));
+            num1 = result;
+            num2 = ans;
+        }while(ans!=0);
+        return result;
+    }
+
+    @Test
+    public void test11(){
+        System.out.println("Add(2,3) = " + Add(2, 3));
+    }
+
 }

@@ -13,6 +13,7 @@ import java.util.Queue;
  */
 public class TreeUtil {
     ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+    public  static ArrayList<TreeNode> treeList=new ArrayList<>();
 
     //    重建二叉树
     public static TreeNode rebuildBinaryTree(int pre[], int in[]) {
@@ -220,35 +221,34 @@ public class TreeUtil {
     }
 
     // 按之字形打印二叉树
-    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
-        ArrayList<ArrayList<T>> res = new ArrayList<>();
-        LinkedList<TreeNode> queue = new LinkedList<>();
-        ArrayList<Integer> tempList=  new ArrayList<>();
-        queue.add(pRoot);
-        while(!queue.isEmpty()){
-            TreeNode node = queue.remove();
-
-            if(node.left!=null){
-                queue.add(node.left);
-            }
-            if(node.right!=null){
-                queue.add(node.right);
-            }
-        }
-
-
-    }
+//    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+//        ArrayList<ArrayList<T>> res = new ArrayList<>();
+//        LinkedList<TreeNode> queue = new LinkedList<>();
+//        ArrayList<Integer> tempList=  new ArrayList<>();
+//        queue.add(pRoot);
+//        while(!queue.isEmpty()){
+//            TreeNode node = queue.remove();
+//
+//            if(node.left!=null){
+//                queue.add(node.left);
+//            }
+//            if(node.right!=null){
+//                queue.add(node.right);
+//            }
+//        }
+//
+//
+//    }
 
     // 查找二叉搜索树的第k个节点
-    ArrayList<TreeNode> res=new ArrayList<>();
+
     public static TreeNode KthNode(TreeNode pRoot, int k){
         inOrder(pRoot);
-        if(k>res.size()||k<=0){
+        if(k>treeList.size()||k<=0){
             return null;
         }
-        return res.get(k-1);
+        return treeList.get(k-1);
     }
-
     public static void inOrder(TreeNode root){
         if(root==null){
             return;
@@ -256,7 +256,7 @@ public class TreeUtil {
         if(root.left!=null){
             inOrder(root.left);
         }
-        res.add(root);
+        treeList.add(root);
         if(root.right!=null){
             inOrder(root.right);
         }
