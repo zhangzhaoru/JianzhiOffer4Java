@@ -163,9 +163,45 @@ public class TreeUtil {
         if(curNode==null){
             return true;
         }
-        if(curNode.right==null&&curNode.left==null){
+        if (curNode.right == null && curNode.left == null) {
             return true;
         }
-        return (Math.abs(TreeDepth(curNode.left)-TreeDepth(curNode.right)))>1?false:true;
+        return (Math.abs(TreeDepth(curNode.left) - TreeDepth(curNode.right))) > 1 ? false : true;
     }
+
+    private static ArrayList<TreeLinkNode> list = new ArrayList<>();
+
+    // 查找二叉树的下一个节点
+    public static TreeLinkNode GetNext(TreeLinkNode pNode) {
+        TreeLinkNode root = pNode;
+        // 查找当前节点的根节点
+        while (root.next != null) {
+            root = root.next;
+        }
+        inOrder4LinkTree(root);
+        int i = 0;
+        for (; i < list.size(); i++) {
+            if (list.get(i) == pNode) {
+                break;
+            }
+        }
+        if (i + 1 < list.size()) {
+            return list.get(i + 1);
+        }
+        return null;
+    }
+
+    public static void inOrder4LinkTree(TreeLinkNode root) {
+        if (root == null) {
+            return;
+        }
+        inOrder4LinkTree(root.left);
+        list.add(root);
+        inOrder4LinkTree(root.right);
+    }
+
+
+
+
+
 }
