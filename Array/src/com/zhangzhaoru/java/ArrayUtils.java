@@ -3,10 +3,7 @@ package com.zhangzhaoru.java;
 import org.junit.Test;
 import org.w3c.dom.ls.LSInput;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * @BelongsProject: JianzhiOffer
@@ -232,6 +229,19 @@ public class ArrayUtils {
         System.out.println();
     }
 
+    // 查找数组中重复的数字
+    public static int duplicate (int[] numbers) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int number : numbers) {
+            if(!map.containsKey(number)){
+                map.put(number,1);
+            }else{
+                map.put(number,map.get(number)+1);
+                return number;
+            }
+        }
+        return -1;
+    }
 
 
 }
