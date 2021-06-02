@@ -1,5 +1,7 @@
 package com.zhangzhaoru.java;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -134,8 +136,8 @@ public class TreeUtil {
         return res;
     }
 
-    // 按照执行顺序打印二叉树
-    public static ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+    // 按照之字顺序打印二叉树
+    public static ArrayList<ArrayList<Integer> > PrintByigzag(TreeNode pRoot) {
         Queue queue = new LinkedList<TreeNode>();
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         if(pRoot==null){
@@ -289,18 +291,75 @@ public class TreeUtil {
         if(root==null){
             return;
         }
-        if(root.left!=null){
+        if (root.left != null) {
             inOrder(root.left);
         }
         treeList.add(root);
-        if(root.right!=null){
+        if (root.right != null) {
             inOrder(root.right);
         }
     }
 
+    // 序列化与反序列化二叉树
+    public static String Serialize(TreeNode root) {
+        if (root == null) {
+            return "";
+        }
+        StringBuilder str = new StringBuilder("");
+        return dspSerialize(root, str).toString();
+    }
 
+    public static StringBuilder dspSerialize(TreeNode root, StringBuilder str) {
+        if (root == null) {
+            return str;
+        }
+        str.append(root.val).append("!");
+        if (root.left != null) {
+            dspSerialize(root.left, str);
+        } else {
+            str.append("#!");
+        }
+        if (root.right != null) {
+            dspSerialize(root.right,str);
+        } else {
+            str.append("#!");
+        }
+        return str;
+    }
 
+    public static TreeNode Deserialize(String str) {
+        if (str == null || str.length() == 0) {
+            return null;
+        }
+        String[] split = str.split("!");
+        return dspDeserialize(split);
+    }
 
+    private static int index = 0;
 
+    public static TreeNode dspDeserialize(String[] str) {
+        if ("#".equals(str[index])){
+            index++;
+            return null;
+        }
+        TreeNode root=new TreeNode(Integer.parseInt(str[index]));
+        index++;
+        root.left = dspDeserialize(str);
+        root.right=dspDeserialize(str);
+        return root;
+    }
+
+    @Test
+    public void test1(){
+        String str="1!2!4!#!#!5!#!#!3!6!#!#!7!#!#!";
+        TreeNode root =Deserialize(str);
+        ArrayList<ArrayList<Integer>> res = Print(root);
+        for (ArrayList<Integer> list : res) {
+            for (Integer integer : list) {
+                System.out.print(integer+" ");
+            }
+            System.out.println();
+        }
+    }
 
 }
