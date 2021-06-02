@@ -1,6 +1,7 @@
 package com.zhangzhaoru.java;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -133,6 +134,36 @@ public class TreeUtil {
         return res;
     }
 
+    // 按照执行顺序打印二叉树
+    public static ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
+        Queue queue = new LinkedList<TreeNode>();
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        if(pRoot==null){
+            return res;
+        }
+        int curDepth = 1;
+        queue.add(pRoot);
+        while(!queue.isEmpty()){
+            ArrayList<Integer> tempList = new ArrayList<>();
+            for(int i = queue.size()-1;i>=0;i--){
+                TreeNode curNode = (TreeNode) queue.poll();
+                tempList.add(curNode.val);
+                if(curNode.left!=null){
+                    queue.add(curNode.left);
+                }
+                if(curNode.right!=null){
+                    queue.add(curNode.right);
+                }
+            }
+            if(curDepth%2==0){
+                Collections.reverse(tempList);
+            }
+            res.add(tempList);
+            curDepth++;
+        }
+        return res;
+    }
+
     // 查找二叉树中和为某值的路径
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
         if (root == null) {
@@ -244,26 +275,6 @@ public class TreeUtil {
         }
         return left.val==right.val&&isMirror(left.left,right.right)&&isMirror(left.right,right.left);
     }
-
-    // 按之字形打印二叉树
-//    public ArrayList<ArrayList<Integer> > Print(TreeNode pRoot) {
-//        ArrayList<ArrayList<T>> res = new ArrayList<>();
-//        LinkedList<TreeNode> queue = new LinkedList<>();
-//        ArrayList<Integer> tempList=  new ArrayList<>();
-//        queue.add(pRoot);
-//        while(!queue.isEmpty()){
-//            TreeNode node = queue.remove();
-//
-//            if(node.left!=null){
-//                queue.add(node.left);
-//            }
-//            if(node.right!=null){
-//                queue.add(node.right);
-//            }
-//        }
-//
-//
-//    }
 
     // 查找二叉搜索树的第k个节点
 
